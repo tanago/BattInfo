@@ -9,36 +9,53 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tanago.battinfo.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button"
+        android:id="@+id/button"
+        android:onClick="buttonOnClick"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="56dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginTop="177dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Current:"
+        android:text="@string/status"
+        android:id="@+id/labelStatus" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fieldStatus"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/labelStatus"
+        android:layout_toEndOf="@id/labelStatus"
+        android:layout_alignTop="@+id/labelStatus" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/current"
         android:id="@+id/labelCurrent"
+        android:layout_below="@+id/labelStatus"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="42dp" />
+        android:layout_marginTop="13dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/fieldCurrent"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
         android:layout_alignTop="@+id/labelCurrent"
-        android:layout_toRightOf="@+id/labelCurrent"
-        android:layout_toEndOf="@+id/labelCurrent"
-        android:text="File Not Found!" />
+        android:layout_alignRight="@+id/fieldStatus"
+        android:layout_alignEnd="@+id/fieldStatus" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:onClick="getCurrent"
-        android:layout_below="@+id/labelCurrent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="29dp" />
 </RelativeLayout>
