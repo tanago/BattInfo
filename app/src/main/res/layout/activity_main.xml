@@ -36,7 +36,6 @@
         android:layout_marginStart="45dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/labelStatus"
-        android:layout_toEndOf="@id/labelStatus"
         android:layout_alignTop="@+id/labelStatus" />
 
     <TextView
@@ -57,5 +56,23 @@
         android:layout_alignTop="@+id/labelCurrent"
         android:layout_alignRight="@+id/fieldStatus"
         android:layout_alignEnd="@+id/fieldStatus" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/percentage"
+        android:id="@+id/labelPercentage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/labelCurrent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fieldPercent"
+        android:layout_alignEnd="@id/fieldCurrent"
+        android:layout_alignTop="@+id/labelPercentage"
+        android:layout_alignRight="@+id/fieldCurrent" />
 
 </RelativeLayout>

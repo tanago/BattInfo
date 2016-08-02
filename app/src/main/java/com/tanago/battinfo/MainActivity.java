@@ -20,5 +20,7 @@ public class MainActivity extends AppCompatActivity {
         fieldStatus.setText(battery.getStatus());
         TextView fieldCurrent = (TextView) findViewById(R.id.fieldCurrent);
         fieldCurrent.setText(battery.getCurrent());
+        TextView fieldPercentage = (TextView) findViewById(R.id.fieldPercent);
+        fieldPercentage.setText(battery.getPercentage());
     }
 }

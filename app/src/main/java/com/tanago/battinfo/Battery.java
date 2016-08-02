@@ -48,7 +48,7 @@ class Battery {
             FileReader file = new FileReader("/sys/class/power_supply/battery/capacity");
             BufferedReader bfrd = new BufferedReader(file);
             data=bfrd.readLine();
-            data=reformat(data, "%");
+            //data=reformat(data, "%");
         }
         catch(IOException e){
             System.out.println("Error while reading \"capacity\" file.");
