@@ -12,7 +12,7 @@ import java.io.IOException;
 class Battery {
 
     private String reformat(String prefix, String suffix){
-        return prefix.substring(0, prefix.length()-3) + " "+ suffix;
+        return prefix + " "+ suffix;
     }
 
     protected String getStatus(){
@@ -34,7 +34,7 @@ class Battery {
             FileReader file = new FileReader("/sys/class/power_supply/battery/current_now");
             BufferedReader bfrd = new BufferedReader(file);
             data=bfrd.readLine();
-            data=reformat(data, "mAh");
+            data=reformat(data.substring(0, data.length()-3), "mAh");
         }
         catch(IOException e){
             System.out.println("Error while reading \"current\" file.");
@@ -48,7 +48,7 @@ class Battery {
             FileReader file = new FileReader("/sys/class/power_supply/battery/capacity");
             BufferedReader bfrd = new BufferedReader(file);
             data=bfrd.readLine();
-            //data=reformat(data, "%");
+            data=reformat(data, "%");
         }
         catch(IOException e){
             System.out.println("Error while reading \"capacity\" file.");
@@ -79,7 +79,7 @@ class Battery {
             FileReader file = new FileReader("/sys/class/power_supply/battery/temp");
             BufferedReader bfrd = new BufferedReader(file);
             data=bfrd.readLine();
-            data=reformat(data, "mAh");
+            data=reformat(data, "°");
         }
         catch(IOException e){
             System.out.println("Error while reading \"temp\" file.");

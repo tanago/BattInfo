@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">BattInfo</string>
+    <string name="button">Press me!</string>
     <string name="current">Current:</string>
     <string name="status">Status:</string>
     <string name="percentage">Percentage:</string>
-    <string name="button">Press me!</string>
+    <string name="temp">Temperature:</string>
+
 </resources>
