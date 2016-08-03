@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         BufferedReader bfr;
         for ( File file : files.listFiles()){
             if(file.isDirectory()) continue;
+
             bfr = new BufferedReader(new FileReader(file));
             System.err.println(file.getName() + "\t" + bfr.readLine() );
         }
