@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillField(int i, String s){
         field = (TextView) findViewById(i);
-        field.setText(s);
+        if (field!=null) field.setText(s);
 
     }
     public void buttonOnClick(View v) {
