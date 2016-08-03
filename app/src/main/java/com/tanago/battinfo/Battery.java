@@ -63,7 +63,7 @@ class Battery {
         File maxCapDesign = new File("/sys/class/power_supply/battery/charge_full_design");
 
         if (!(maxCap.exists() && maxCapDesign.exists())) {
-            System.err.print("Missing Battery Wear file(s)");
+            System.err.println("Missing Battery Wear file(s)");
             return data.toString();
         }
         getInfo(maxCap.getAbsolutePath());
