@@ -95,4 +95,23 @@
         android:layout_alignTop="@+id/labelTemp"
         android:layout_alignRight="@+id/fieldPercent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wear"
+        android:id="@+id/labelWear"
+        android:layout_below="@+id/labelTemp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fieldWear"
+        android:layout_alignEnd="@id/fieldTemp"
+        android:layout_alignTop="@+id/labelWear"
+        android:layout_alignRight="@+id/fieldTemp"
+        android:layout_alignParentLeft="false" />
+
 </RelativeLayout>

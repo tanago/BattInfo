@@ -2,6 +2,7 @@ package com.tanago.battinfo;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,70 +13,77 @@ import java.io.IOException;
 class Battery {
 
     StringBuilder data = new StringBuilder();
-    BufferedReader file;
+    BufferedReader buffRdr;
+    File file;
 
-    private void rewriteSB( String info ){
-        data.delete(0, data.length());
+    private void rewriteSB(String info) {
+        data = new StringBuilder();
         data.append(info);
     }
 
-    private void getInfo(String filePath){
-        try{
-            file = new BufferedReader(new FileReader(filePath));
-            rewriteSB(file.readLine());
-        }
-        catch(IOException e){
+    private void getInfo(String filePath) {
+        try {
+            buffRdr = new BufferedReader(new FileReader(filePath));
+            rewriteSB(buffRdr.readLine());
+        } catch (IOException e) {
             System.err.println("Error while reading " + filePath);
         }
 
     }
 
-/* TODO
-    private String reformat(String prefix, String suffix){
-        return prefix + " "+ suffix;
-    }
-*/
-
-    protected String getStatus(){
+    protected String getStatus() {
         rewriteSB("missing");
-        getInfo("/sys/class/power_supply/battery/status");
+        file = new File("/sys/class/power_supply/battery/status");
+        getInfo(file.getAbsolutePath());
         return data.toString();
     }
 
-    protected String getCurrent(){
+    protected String getCurrent() {
         rewriteSB("missing");
-        getInfo("/sys/class/power_supply/battery/current_now");
-        return data.substring(0,data.length()-3).toString()+ " mA/h";
+        file = new File("/sys/class/power_supply/battery/current_now");
+        if (! file.exists()) return "missing";
+
+        getInfo(file.getAbsolutePath());
+        return data.substring(0, data.length() - 3) + " mA/h";
     }
 
-    protected String getPercentage(){
+    protected String getPercentage() {
         rewriteSB("missing");
-        getInfo("/sys/class/power_supply/battery/capacity");
+        file = new File("/sys/class/power_supply/battery/capacity");
+        if (! file.exists()) return data.toString();
+
+        getInfo(file.getAbsolutePath());
         data.append("%");
         return data.toString();
     }
 
-//         protected String getWear(){
-//
-//        //TODO x=100-(charge_full/charge_full_design)*100 (if x<0  x = 0 )
-//        rewriteSB("missing");
-//        try{
-//            FileReader file = new FileReader("/sys/class/power_supply/battery/capacity");
-//            BufferedReader bfrd = new BufferedReader(file);
-//            rewriteSB(bfrd.readLine());
-//            data=reformat(data, "mAh");
-//        }
-//        catch(IOException e){
-//            System.out.println("Error while reading \"current\" file.");
-//        }
-//        return data.toString();
-//    }
-
-
-    protected String getTemp(){
+    protected String getWear() {
         rewriteSB("missing");
-        getInfo("/sys/class/power_supply/battery/temp");
-        return data.insert(data.length()-1, ',').append('°').toString();
+        File maxCap = new File("/sys/class/power_supply/battery/charge_full");
+        File maxCapDesign = new File("/sys/class/power_supply/battery/charge_full_design");
+
+        if (!(maxCap.exists() && maxCapDesign.exists())) {
+            System.err.print("Missing Battery Wear file(s)");
+            return data.toString();
+        }
+        getInfo(maxCap.getAbsolutePath());
+        int maxCapInt = Integer.parseInt(data.toString());
+        getInfo(maxCapDesign.getAbsolutePath());
+        int maxCapDesignInt = Integer.parseInt(data.toString());
+
+        int wearlvl = 100 - (maxCapInt/maxCapDesignInt) * 100;
+        if (wearlvl <0)  wearlvl =0;
+        return String.valueOf(wearlvl) + "%";
+    }
+
+
+    protected String getTemp() {
+        rewriteSB("missing");
+        file = new File("/sys/class/power_supply/battery/temp");
+        if (! file.exists()) return data.toString();
+
+        getInfo(file.getAbsolutePath());
+        return data.insert(data.length() - 1, ',').append('°').toString();
     }
 
 //    protected String getTempScale(){
@@ -83,13 +91,13 @@ class Battery {
 //        //TODO ( temp
 //        rewriteSB("missing");
 //        try{
-//            FileReader file = new FileReader("/sys/class/power_supply/battery/capacity");
-//            BufferedReader bfrd = new BufferedReader(file);
+//            FileReader buffRdr = new FileReader("/sys/class/power_supply/battery/capacity");
+//            BufferedReader bfrd = new BufferedReader(buffRdr);
 //            rewriteSB(bfrd.readLine());
 //            data=reformat(data, "mAh");
 //        }
 //        catch(IOException e){
-//            System.out.println("Error while reading \"current\" file.");
+//            System.out.println("Error while reading \"current\" buffRdr.");
 //        }
 //        return data.toString();
 //    }
