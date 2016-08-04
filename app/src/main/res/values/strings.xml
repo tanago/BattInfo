@@ -7,5 +7,6 @@
     <string name="temp">Temperature:</string>
     <string name="wear">Wear:</string>
     <string name="missing">missing</string>
+    <string name="voltage">Voltage</string>
 
 </resources>

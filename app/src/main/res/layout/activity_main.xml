@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tanago.battinfo.MainActivity"
-    android:background="@mipmap/fondo">
+    >
 
     <Button
         android:layout_width="wrap_content"
@@ -120,5 +120,23 @@
         android:layout_above="@+id/button"
         android:layout_alignLeft="@+id/labelPercentage"
         android:layout_alignStart="@+id/labelPercentage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/voltage"
+        android:id="@+id/labelVoltage"
+        android:layout_alignTop="@+id/labelWear"
+        android:layout_alignRight="@+id/fieldCurrent"
+        android:layout_alignEnd="@+id/fieldCurrent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fieldVoltage"
+        android:text="@string/missing"
+        android:layout_below="@+id/labelWear"
+        android:layout_alignLeft="@+id/fieldCurrent"
+        android:layout_alignStart="@+id/fieldCurrent" />
 
 </RelativeLayout>

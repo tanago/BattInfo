@@ -86,6 +86,15 @@ class Battery {
         return data.insert(data.length() - 1, ',').append('°').toString();
     }
 
+    protected String getVolt() {
+        rewriteSB("missing");
+        file = new File("/sys/class/power_supply/battery/voltage_now");
+        if (! file.exists()) return data.toString();
+
+        getInfo(file.getAbsolutePath());
+        return data.delete(data.length()-4,data.length()-1).insert(1, ',').append(" V").toString();
+    }
+
 //    protected String getTempScale(){
 //
 //        //TODO ( temp
