@@ -12,8 +12,6 @@
         android:text="@string/button"
         android:id="@+id/button"
         android:onClick="buttonOnClick"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/fieldVoltage"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -73,7 +71,6 @@
         android:layout_marginTop="78dp"
         android:layout_below="@+id/labelStatus"
         android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button"
         android:textSize="20sp" />
 
     <TextView
