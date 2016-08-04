@@ -35,11 +35,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fieldStatus"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/labelStatus"
-        android:layout_alignTop="@+id/labelStatus" />
+        android:text="@string/missing"
+        android:layout_alignBaseline="@+id/fieldCurrent"
+        android:layout_alignBottom="@+id/fieldCurrent"
+        android:layout_alignRight="@+id/labelStatus"
+        android:layout_alignEnd="@+id/labelStatus" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,6 +55,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/missing"
+        android:id="@+id/fieldCurrent"
+        android:layout_below="@+id/labelCurrent"
+        android:layout_alignRight="@+id/labelCurrent"
+        android:layout_alignEnd="@+id/labelCurrent"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/percentage"
         android:id="@+id/labelPercentage"
         android:layout_marginTop="78dp"
@@ -66,16 +76,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fieldPercent"
-        android:layout_alignTop="@+id/labelPercentage"
-        android:layout_alignEnd="@+id/labelCurrent"
-        android:layout_alignRight="@+id/labelCurrent" />
+        android:text="@string/missing"
+        android:layout_below="@+id/labelPercentage"
+        android:layout_alignRight="@+id/labelStatus"
+        android:layout_alignEnd="@+id/labelStatus"
+        android:layout_marginTop="14dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/temp"
         android:id="@+id/labelTemp"
-        android:layout_alignTop="@+id/fieldPercent"
+        android:layout_alignBaseline="@+id/labelPercentage"
+        android:layout_alignBottom="@+id/labelPercentage"
         android:layout_toRightOf="@+id/button"
         android:layout_toEndOf="@+id/button" />
 
@@ -83,11 +96,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fieldTemp"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignEnd="@id/fieldPercent"
-        android:layout_alignTop="@+id/labelTemp"
-        android:layout_alignRight="@+id/fieldPercent" />
+        android:text="@string/missing"
+        android:layout_alignTop="@+id/fieldPercent"
+        android:layout_alignLeft="@+id/labelCurrent"
+        android:layout_alignStart="@+id/labelCurrent" />
 
     <TextView
         android:layout_width="wrap_content"
