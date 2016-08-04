@@ -40,8 +40,6 @@
         android:id="@+id/fieldStatus"
         android:text="@string/missing"
         android:textStyle="bold|italic"
-        android:password="false"
-        android:phoneNumber="false"
         android:layout_alignTop="@+id/fieldCurrent"
         android:layout_alignLeft="@+id/labelStatus"
         android:layout_alignStart="@+id/labelStatus" />
@@ -51,12 +49,10 @@
         android:layout_height="wrap_content"
         android:text="@string/current"
         android:id="@+id/labelCurrent"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_alignTop="@+id/labelStatus"
         android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button"
-        android:autoText="false"
-        android:allowUndo="false" />
+        android:layout_toEndOf="@+id/button" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,11 +60,7 @@
         android:text="@string/missing"
         android:id="@+id/fieldCurrent"
         android:textStyle="bold|italic"
-        android:password="false"
-        android:phoneNumber="false"
-        android:autoText="false"
-        android:allowUndo="false"
-        android:layout_marginTop="29dp"
+       android:layout_marginTop="29dp"
         android:layout_below="@+id/labelCurrent"
         android:layout_alignRight="@+id/labelCurrent"
         android:layout_alignEnd="@+id/labelCurrent" />
@@ -82,27 +74,29 @@
         android:layout_below="@+id/labelStatus"
         android:layout_toLeftOf="@+id/button"
         android:layout_toStartOf="@+id/button"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fieldPercent"
         android:text="@string/missing"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="25dp"
         android:textStyle="bold|italic"
         android:password="false"
         android:phoneNumber="false"
         android:layout_below="@+id/labelPercentage"
-        android:layout_alignLeft="@+id/fieldStatus"
-        android:layout_alignStart="@+id/fieldStatus" />
+        android:layout_alignRight="@+id/fieldStatus"
+        android:layout_alignEnd="@+id/fieldStatus"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/temp"
         android:id="@+id/labelTemp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_marginRight="45dp"
         android:layout_marginEnd="45dp"
         android:layout_alignTop="@+id/labelPercentage"
@@ -129,7 +123,7 @@
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/labelStatus"
         android:layout_alignStart="@+id/labelStatus"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
