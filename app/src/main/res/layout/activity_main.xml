@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tanago.battinfo.MainActivity"
-    >
+    android:background="@mipmap/fondo">
 
     <Button
         android:layout_width="wrap_content"
@@ -12,9 +12,9 @@
         android:text="@string/button"
         android:id="@+id/button"
         android:onClick="buttonOnClick"
-        android:layout_below="@+id/fieldWear"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/fieldVoltage"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,15 +81,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/fieldPercent"
         android:text="@string/missing"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="23dp"
         android:textStyle="bold|italic"
         android:password="false"
         android:phoneNumber="false"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="25sp"
         android:layout_below="@+id/labelPercentage"
-        android:layout_alignRight="@+id/fieldStatus"
-        android:layout_alignEnd="@+id/fieldStatus"
-        android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp" />
+        android:layout_alignRight="@+id/labelWear"
+        android:layout_alignEnd="@+id/labelWear" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -145,15 +145,17 @@
         android:id="@+id/labelVoltage"
         android:layout_alignTop="@+id/labelWear"
         android:layout_alignRight="@+id/fieldCurrent"
-        android:layout_alignEnd="@+id/fieldCurrent" />
+        android:layout_alignEnd="@+id/fieldCurrent"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fieldVoltage"
         android:text="@string/missing"
-        android:layout_below="@+id/labelWear"
-        android:layout_alignLeft="@+id/fieldCurrent"
-        android:layout_alignStart="@+id/fieldCurrent" />
+        android:layout_alignTop="@+id/fieldWear"
+        android:layout_alignRight="@+id/labelVoltage"
+        android:layout_alignEnd="@+id/labelVoltage"
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>
