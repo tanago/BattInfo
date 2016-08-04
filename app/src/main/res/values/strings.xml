@@ -6,5 +6,6 @@
     <string name="percentage">Percentage:</string>
     <string name="temp">Temperature:</string>
     <string name="wear">Wear:</string>
+    <string name="missing">missing</string>
 
 </resources>

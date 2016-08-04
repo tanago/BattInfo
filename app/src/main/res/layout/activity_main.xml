@@ -16,18 +16,20 @@
         android:text="@string/button"
         android:id="@+id/button"
         android:onClick="buttonOnClick"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="56dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginTop="177dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/status"
-        android:id="@+id/labelStatus" />
+        android:id="@+id/labelStatus"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/labelPercentage"
+        android:layout_alignStart="@+id/labelPercentage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,47 +46,38 @@
         android:layout_height="wrap_content"
         android:text="@string/current"
         android:id="@+id/labelCurrent"
-        android:layout_below="@+id/labelStatus"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/fieldCurrent"
-        android:layout_alignTop="@+id/labelCurrent"
-        android:layout_alignRight="@+id/fieldStatus"
-        android:layout_alignEnd="@+id/fieldStatus" />
+        android:layout_alignTop="@+id/labelStatus"
+        android:layout_alignLeft="@+id/labelTemp"
+        android:layout_alignStart="@+id/labelTemp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/percentage"
         android:id="@+id/labelPercentage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp"
-        android:layout_below="@+id/labelCurrent" />
+        android:layout_marginTop="78dp"
+        android:layout_below="@+id/labelStatus"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fieldPercent"
-        android:layout_alignEnd="@id/fieldCurrent"
         android:layout_alignTop="@+id/labelPercentage"
-        android:layout_alignRight="@+id/fieldCurrent" />
+        android:layout_alignEnd="@+id/labelCurrent"
+        android:layout_alignRight="@+id/labelCurrent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/temp"
         android:id="@+id/labelTemp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/labelPercentage"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="13dp" />
+        android:layout_alignTop="@+id/fieldPercent"
+        android:layout_toRightOf="@+id/button"
+        android:layout_toEndOf="@+id/button" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,18 +94,19 @@
         android:layout_height="wrap_content"
         android:text="@string/wear"
         android:id="@+id/labelWear"
-        android:layout_below="@+id/labelTemp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp" />
+        android:layout_marginBottom="30dp"
+        android:layout_above="@+id/fieldWear"
+        android:layout_alignLeft="@+id/fieldWear"
+        android:layout_alignStart="@+id/fieldWear" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fieldWear"
-        android:layout_alignEnd="@id/fieldTemp"
-        android:layout_alignTop="@+id/labelWear"
-        android:layout_alignRight="@+id/fieldTemp"
-        android:layout_alignParentLeft="false" />
+        android:text="@string/missing"
+        android:layout_marginBottom="120dp"
+        android:layout_above="@+id/button"
+        android:layout_alignLeft="@+id/labelPercentage"
+        android:layout_alignStart="@+id/labelPercentage" />
 
 </RelativeLayout>
