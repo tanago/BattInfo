@@ -12,9 +12,9 @@
         android:text="@string/button"
         android:id="@+id/button"
         android:onClick="buttonOnClick"
-        android:layout_below="@+id/fieldWear"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
+        android:layout_marginTop="59dp"
+        android:layout_below="@+id/fieldVoltage"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
