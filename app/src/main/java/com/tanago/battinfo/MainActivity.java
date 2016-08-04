@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void buttonOnClick(View v) throws IOException{
         fillField(R.id.fieldStatus, battery.getStatus());
-        fillField(R.id.field, battery.getCurrent());
+        fillField(R.id.fieldCurrent, battery.getCurrent());
         fillField(R.id.fieldPercent, battery.getPercentage());
         fillField(R.id.fieldTemp, battery.getTemp());
         fillField(R.id.fieldWear, battery.getWear());
