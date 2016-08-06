@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">BattInfo</string>
-    <string name="button">Press me!</string>
-    <string name="current">Current:</string>
-    <string name="status">Status:</string>
-    <string name="percentage">Percentage:</string>
-    <string name="temp">Temperature:</string>
-    <string name="wear">Wear:</string>
-    <string name="missing">missing</string>
+    <string name="current">Current</string>
+    <string name="status">Status</string>
+    <string name="percentage">Pct.</string>
+    <string name="temp">Temp</string>
+    <string name="wear">Wear</string>
+    <string name="missing">Unsupported</string>
     <string name="voltage">Voltage</string>
 
 </resources>

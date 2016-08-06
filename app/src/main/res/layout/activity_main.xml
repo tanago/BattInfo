@@ -4,155 +4,149 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tanago.battinfo.MainActivity"
-    android:background="@mipmap/fondo">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button"
-        android:id="@+id/button"
-        android:onClick="buttonOnClick"
-        android:layout_centerHorizontal="true" />
+    android:background="@mipmap/fondo"
+    android:clickable="false">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/status"
         android:id="@+id/labelStatus"
-        android:layout_marginTop="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/labelPercentage"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="14dp"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentRight="false"
+        android:layout_marginTop="31dp"
         android:layout_alignWithParentIfMissing="true"
-        android:textSize="20sp" />
+        android:textSize="30sp"
+        android:clickable="false"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/labelPercentage"
+        android:layout_toStartOf="@+id/labelPercentage"
+        android:layout_marginRight="32dp"
+        android:layout_marginEnd="32dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fieldStatus"
         android:text="@string/missing"
-        android:textStyle="bold|italic"
-        android:layout_alignTop="@+id/fieldCurrent"
-        android:layout_alignLeft="@+id/labelStatus"
-        android:layout_alignStart="@+id/labelStatus" />
+        android:id="@+id/FieldStatus"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/labelStatus"
+        android:layout_alignRight="@+id/labelStatus"
+        android:layout_alignEnd="@+id/labelStatus" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/current"
         android:id="@+id/labelCurrent"
-        android:textSize="20sp"
+        android:textSize="30sp"
+        android:clickable="false"
+        android:textStyle="bold"
+        android:typeface="normal"
         android:layout_alignTop="@+id/labelStatus"
-        android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_toRightOf="@+id/labelTemp"
+        android:layout_toEndOf="@+id/labelTemp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/missing"
-        android:id="@+id/fieldCurrent"
-        android:textStyle="bold|italic"
-       android:layout_marginTop="29dp"
-        android:layout_below="@+id/labelCurrent"
-        android:layout_alignRight="@+id/labelCurrent"
-        android:layout_alignEnd="@+id/labelCurrent" />
+        android:id="@+id/FieldCurrent"
+        android:layout_alignTop="@+id/FieldStatus"
+        android:layout_alignLeft="@+id/labelCurrent"
+        android:layout_alignStart="@+id/labelCurrent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/percentage"
         android:id="@+id/labelPercentage"
-        android:layout_marginTop="78dp"
-        android:layout_below="@+id/labelStatus"
-        android:layout_toLeftOf="@+id/button"
-        android:textSize="20sp" />
+        android:textSize="30sp"
+        android:layout_alignWithParentIfMissing="false"
+        android:clickable="false"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fieldPercent"
         android:text="@string/missing"
-        android:layout_marginTop="23dp"
-        android:textStyle="bold|italic"
-        android:password="false"
-        android:phoneNumber="false"
-        android:textColor="@android:color/holo_green_light"
-        android:textSize="25sp"
+        android:id="@+id/FieldPercent"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/labelPercentage"
-        android:layout_alignRight="@+id/labelWear"
-        android:layout_alignEnd="@+id/labelWear" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#36ff83"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/temp"
         android:id="@+id/labelTemp"
-        android:textSize="20sp"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp"
-        android:layout_alignTop="@+id/labelPercentage"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textSize="30sp"
+        android:layout_alignWithParentIfMissing="false"
+        android:clickable="false"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:layout_marginTop="67dp"
+        android:layout_below="@+id/labelPercentage"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fieldTemp"
         android:text="@string/missing"
-        android:textStyle="bold|italic"
-        android:password="false"
-        android:phoneNumber="false"
-        android:layout_alignTop="@+id/fieldPercent"
-        android:layout_alignLeft="@+id/fieldCurrent"
-        android:layout_alignStart="@+id/fieldCurrent" />
+        android:id="@+id/FieldTemp"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/labelTemp"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/wear"
         android:id="@+id/labelWear"
-        android:layout_centerVertical="true"
+        android:textSize="30sp"
+        android:clickable="false"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/FieldStatus"
         android:layout_alignLeft="@+id/labelStatus"
-        android:layout_alignStart="@+id/labelStatus"
-        android:textSize="20sp" />
+        android:layout_alignStart="@+id/labelStatus" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fieldWear"
         android:text="@string/missing"
-        android:layout_marginTop="18dp"
-        android:textStyle="bold|italic"
-        android:password="false"
-        android:phoneNumber="false"
+        android:id="@+id/FieldWear"
         android:layout_below="@+id/labelWear"
-        android:layout_alignLeft="@+id/labelWear"
-        android:layout_alignStart="@+id/labelWear" />
+        android:layout_alignRight="@+id/labelStatus"
+        android:layout_alignEnd="@+id/labelStatus"
+        android:layout_marginTop="26dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/voltage"
         android:id="@+id/labelVoltage"
+        android:textSize="30sp"
+        android:clickable="false"
+        android:textStyle="bold"
+        android:typeface="normal"
         android:layout_alignTop="@+id/labelWear"
-        android:layout_alignRight="@+id/fieldCurrent"
-        android:layout_alignEnd="@+id/fieldCurrent"
-        android:textSize="20sp" />
+        android:layout_alignRight="@+id/labelCurrent"
+        android:layout_alignEnd="@+id/labelCurrent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fieldVoltage"
         android:text="@string/missing"
-        android:layout_alignTop="@+id/fieldWear"
-        android:layout_alignRight="@+id/labelVoltage"
-        android:layout_alignEnd="@+id/labelVoltage"
-        android:textStyle="bold|italic" />
+        android:id="@+id/FieldVoltage"
+        android:layout_alignTop="@+id/FieldWear"
+        android:layout_alignLeft="@+id/FieldCurrent"
+        android:layout_alignStart="@+id/FieldCurrent" />
 
 </RelativeLayout>
