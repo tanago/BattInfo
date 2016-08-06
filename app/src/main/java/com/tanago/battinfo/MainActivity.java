@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
 
     private Battery battery = new Battery();
     private TextView field;
-    private int UPDATE_INTERVAL=1000;
+    private int UPDATE_INTERVAL=2000;
     private final Handler handler = new Handler();
 
     public void run(){
@@ -18,14 +18,9 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         fillField(R.id.fieldCurrent, battery.getCurrent());
         fillField(R.id.fieldPercent, battery.getPercentage());
         fillField(R.id.fieldTemp, battery.getTemp());
-       fillField(R.id.fieldVoltage, battery.getVolt());
+        fillField(R.id.fieldVoltage, battery.getVolt());
+        handler.postDelayed(this, UPDATE_INTERVAL);
     }
-
-    private void refresh(){
-        while(true)
-            run();
-   }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     protected void onResume(){
         super.onResume();
         run();
-        handler.postDelayed(this, 1000);
     }
 
     @Override
