@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/missing"
-        android:id="@+id/FieldStatus"
+        android:id="@+id/fieldStatus"
         android:layout_marginTop="23dp"
         android:layout_below="@+id/labelStatus"
         android:layout_alignRight="@+id/labelStatus"
@@ -51,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/missing"
-        android:id="@+id/FieldCurrent"
-        android:layout_alignTop="@+id/FieldStatus"
+        android:id="@+id/fieldCurrent"
+        android:layout_alignTop="@+id/fieldStatus"
         android:layout_alignLeft="@+id/labelCurrent"
         android:layout_alignStart="@+id/labelCurrent" />
 
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/missing"
-        android:id="@+id/FieldPercent"
+        android:id="@+id/fieldPercent"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/labelPercentage"
         android:layout_centerHorizontal="true"
@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/missing"
-        android:id="@+id/FieldTemp"
+        android:id="@+id/fieldTemp"
         android:layout_marginTop="27dp"
         android:layout_below="@+id/labelTemp"
         android:layout_centerHorizontal="true" />
@@ -113,7 +113,7 @@
         android:textStyle="bold"
         android:typeface="normal"
         android:layout_marginTop="29dp"
-        android:layout_below="@+id/FieldStatus"
+        android:layout_below="@+id/fieldStatus"
         android:layout_alignLeft="@+id/labelStatus"
         android:layout_alignStart="@+id/labelStatus" />
 
@@ -121,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/missing"
-        android:id="@+id/FieldWear"
+        android:id="@+id/fieldWear"
         android:layout_below="@+id/labelWear"
         android:layout_alignRight="@+id/labelStatus"
         android:layout_alignEnd="@+id/labelStatus"
@@ -144,9 +144,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/missing"
-        android:id="@+id/FieldVoltage"
-        android:layout_alignTop="@+id/FieldWear"
-        android:layout_alignLeft="@+id/FieldCurrent"
-        android:layout_alignStart="@+id/FieldCurrent" />
+        android:id="@+id/fieldVoltage"
+        android:layout_alignTop="@+id/fieldWear"
+        android:layout_alignLeft="@+id/fieldCurrent"
+        android:layout_alignStart="@+id/fieldCurrent" />
 
 </RelativeLayout>
