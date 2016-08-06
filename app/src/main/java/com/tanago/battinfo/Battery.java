@@ -32,25 +32,34 @@ class Battery {
     }
 
     protected String getStatus() {
-        rewriteSB("missing");
+        rewriteSB("Unsupported");
         file = new File("/sys/class/power_supply/battery/status");
         getInfo(file.getAbsolutePath());
         return data.toString();
     }
 
     protected String getCurrent() {
-        rewriteSB("missing");
-        file = new File("/sys/class/power_supply/battery/current_now");
-        if (! file.exists()) return "missing";
+        rewriteSB("Unsupported");
 
-        getInfo(file.getAbsolutePath());
-        return data.substring(0, data.length() - 3) + " mA/h";
+        file = new File("/sys/class/power_supply/battery/current_now");
+        if (file.exists()) {
+            getInfo(file.getAbsolutePath());
+            return data.substring(0, data.length() - 3) + " mA/h";
+        }
+
+        file = new File("/sys/class/power_supply/battery/BatteryAverageCurrent");
+        if (file.exists()) {
+            getInfo(file.getAbsolutePath());
+            return data.toString() + " mA/h";
+        }
+
+        return data.toString();
     }
 
     protected String getPercentage() {
-        rewriteSB("missing");
+        rewriteSB("Unsupported");
         file = new File("/sys/class/power_supply/battery/capacity");
-        if (! file.exists()) return data.toString();
+        if (!file.exists()) return data.toString();
 
         getInfo(file.getAbsolutePath());
         data.append("%");
@@ -58,7 +67,7 @@ class Battery {
     }
 
     protected String getWear() {
-        rewriteSB("missing");
+        rewriteSB("Unsupported");
         File maxCap = new File("/sys/class/power_supply/battery/charge_full");
         File maxCapDesign = new File("/sys/class/power_supply/battery/charge_full_design");
 
@@ -71,27 +80,45 @@ class Battery {
         getInfo(maxCapDesign.getAbsolutePath());
         int maxCapDesignInt = Integer.parseInt(data.toString());
 
-        int wearlvl = 100 - (maxCapInt/maxCapDesignInt) * 100;
-        if (wearlvl <0)  wearlvl =0;
+        int wearlvl = 100 - (maxCapInt / maxCapDesignInt) * 100;
+        if (wearlvl < 0) wearlvl = 0;
         return String.valueOf(wearlvl) + "%";
     }
 
 
     protected String getTemp() {
-        rewriteSB("missing");
-        file = new File("/sys/class/power_supply/battery/temp");
-        if (! file.exists()) return data.toString();
+        rewriteSB("Unsupported");
 
-        getInfo(file.getAbsolutePath());
-        return data.insert(data.length() - 1, ',').append('°').toString();
+        file = new File("/sys/class/power_supply/battery/temp");
+        if (file.exists()) {
+            getInfo(file.getAbsolutePath());
+            return data.insert(data.length() - 1, ',').append('°').toString();
+        }
+
+        file = new File("/sys/class/power_supply/battery/batt_temp");
+        if (file.exists()) {
+            getInfo(file.getAbsolutePath());
+            return data.insert(data.length() - 1, ',').append('°').toString();
+        }
+
+        return data.toString();
     }
 
     protected String getVolt() {
-        rewriteSB("missing");
-        file = new File("/sys/class/power_supply/battery/voltage_now");
-        if (! file.exists()) return data.toString();
+        rewriteSB("Unsupported");
 
-        getInfo(file.getAbsolutePath());
-        return data.delete(data.length()-4,data.length()-1).insert(1, ',').append(" V").toString();
+        file = new File("/sys/class/power_supply/battery/voltage_now");
+        if (file.exists()) {
+            getInfo(file.getAbsolutePath());
+            return data.delete(data.length() - 4, data.length() - 1).insert(1, ',').append(" V").toString();
+        }
+
+        file = new File("/sys/class/power_supply/battery/batt_vol");
+        if (file.exists()) {
+            getInfo(file.getAbsolutePath());
+            return data.insert(1, ',').append(" V").toString();
+        }
+
+        return data.toString();
     }
 }
