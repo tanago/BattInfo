@@ -5,6 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class MainActivity extends AppCompatActivity implements Runnable{
 
@@ -12,6 +18,17 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     private TextView field;
     private int UPDATE_INTERVAL=2000;
     private final Handler handler = new Handler();
+
+    private void debugBatteryFiles(File dir) throws IOException {
+        BufferedReader bfr;
+        for (File file : dir.listFiles()) {
+            if (file.isDirectory()) continue;
+
+            bfr = new BufferedReader(new FileReader(file));
+            System.err.println(file.getName() + "\t" + bfr.readLine());
+
+        }
+    }
 
     public void run(){
         fillField(R.id.fieldStatus, battery.getStatus());
@@ -27,6 +44,17 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fillField(R.id.fieldWear, battery.getWear());
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        try {
+            debugBatteryFiles(new File("/sys/class/power_supply/battery/"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
