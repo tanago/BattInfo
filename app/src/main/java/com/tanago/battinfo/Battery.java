@@ -94,20 +94,4 @@ class Battery {
         getInfo(file.getAbsolutePath());
         return data.delete(data.length()-4,data.length()-1).insert(1, ',').append(" V").toString();
     }
-
-//    protected String getTempScale(){
-//
-//        //TODO ( temp
-//        rewriteSB("missing");
-//        try{
-//            FileReader buffRdr = new FileReader("/sys/class/power_supply/battery/capacity");
-//            BufferedReader bfrd = new BufferedReader(buffRdr);
-//            rewriteSB(bfrd.readLine());
-//            data=reformat(data, "mAh");
-//        }
-//        catch(IOException e){
-//            System.out.println("Error while reading \"current\" buffRdr.");
-//        }
-//        return data.toString();
-//    }
 }
