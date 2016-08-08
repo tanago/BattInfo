@@ -2,7 +2,7 @@
     <string name="app_name">BattInfo</string>
     <string name="current">Current</string>
     <string name="status">Status</string>
-    <string name="percentage">Pct.</string>
+    <string name="percentage">Availability</string>
     <string name="temp">Temp</string>
     <string name="wear">Wear</string>
     <string name="missing">Unsupported</string>

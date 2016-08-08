@@ -1,152 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tanago.battinfo.MainActivity"
-    android:background="@mipmap/fondo"
-    android:clickable="false">
+    android:stretchColumns="1"
+    android:background="@mipmap/fondo">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/status"
+                android:id="@+id/labelStatus"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:textSize="35sp"
+                android:textColor="#cfcfcf" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing"
+                android:id="@+id/fieldStatus"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#cfcfcf" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/current"
+                android:id="@+id/labelCurrent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:textSize="35sp"
+                android:textColor="#cfcfcf" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing"
+                android:id="@+id/fieldCurrent"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#cfcfcf" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/status"
-        android:id="@+id/labelStatus"
-        android:layout_marginTop="31dp"
-        android:layout_alignWithParentIfMissing="true"
-        android:textSize="30sp"
-        android:clickable="false"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/labelPercentage"
-        android:layout_toStartOf="@+id/labelPercentage"
-        android:layout_marginRight="32dp"
-        android:layout_marginEnd="32dp" />
+        android:baselineAligned="false">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/voltage"
+                android:id="@+id/labelVoltage"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:textSize="35sp"
+                android:textColor="#cfcfcf" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing"
+                android:id="@+id/fieldVoltage"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#cfcfcf" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/wear"
+                android:id="@+id/labelWear"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:textSize="35sp"
+                android:textColor="#cfcfcf" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing"
+                android:id="@+id/fieldWear"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#cfcfcf" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/missing"
-        android:id="@+id/fieldStatus"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/labelStatus"
-        android:layout_alignRight="@+id/labelStatus"
-        android:layout_alignEnd="@+id/labelStatus" />
+        android:baselineAligned="false">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/current"
-        android:id="@+id/labelCurrent"
-        android:textSize="30sp"
-        android:clickable="false"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:layout_alignTop="@+id/labelStatus"
-        android:layout_toRightOf="@+id/labelTemp"
-        android:layout_toEndOf="@+id/labelTemp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_weight="1" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/missing"
-        android:id="@+id/fieldCurrent"
-        android:layout_alignTop="@+id/fieldStatus"
-        android:layout_alignLeft="@+id/labelCurrent"
-        android:layout_alignStart="@+id/labelCurrent" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/percentage"
+                android:id="@+id/labelPercentage"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:textSize="35sp"
+                android:textColor="#cfcfcf" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/percentage"
-        android:id="@+id/labelPercentage"
-        android:textSize="30sp"
-        android:layout_alignWithParentIfMissing="false"
-        android:clickable="false"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing"
+                android:id="@+id/fieldPercent"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#cfcfcf" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/missing"
-        android:id="@+id/fieldPercent"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/labelPercentage"
-        android:layout_centerHorizontal="true"
-        android:textColor="#36ff83"
-        android:textSize="20sp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/temp"
-        android:id="@+id/labelTemp"
-        android:textSize="30sp"
-        android:layout_alignWithParentIfMissing="false"
-        android:clickable="false"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:layout_marginTop="67dp"
-        android:layout_below="@+id/labelPercentage"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/temp"
+                android:id="@+id/labelTemp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:textSize="35sp"
+                android:textColor="#cfcfcf" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/missing"
-        android:id="@+id/fieldTemp"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/labelTemp"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/missing"
+                android:id="@+id/fieldTemp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#cfcfcf" />
+        </LinearLayout>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/wear"
-        android:id="@+id/labelWear"
-        android:textSize="30sp"
-        android:clickable="false"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:layout_marginTop="29dp"
-        android:layout_below="@+id/fieldStatus"
-        android:layout_alignLeft="@+id/labelStatus"
-        android:layout_alignStart="@+id/labelStatus" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/missing"
-        android:id="@+id/fieldWear"
-        android:layout_below="@+id/labelWear"
-        android:layout_alignRight="@+id/labelStatus"
-        android:layout_alignEnd="@+id/labelStatus"
-        android:layout_marginTop="26dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/voltage"
-        android:id="@+id/labelVoltage"
-        android:textSize="30sp"
-        android:clickable="false"
-        android:textStyle="bold"
-        android:typeface="normal"
-        android:layout_alignTop="@+id/labelWear"
-        android:layout_alignRight="@+id/labelCurrent"
-        android:layout_alignEnd="@+id/labelCurrent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/missing"
-        android:id="@+id/fieldVoltage"
-        android:layout_alignTop="@+id/fieldWear"
-        android:layout_alignLeft="@+id/fieldCurrent"
-        android:layout_alignStart="@+id/fieldCurrent" />
-
-</RelativeLayout>
+</TableLayout>
