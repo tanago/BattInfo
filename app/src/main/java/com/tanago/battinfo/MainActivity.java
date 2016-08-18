@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -42,12 +45,19 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     }
 
     public void run() {
+        handler.postDelayed(this, UPDATE_INTERVAL);
         fillField(R.id.fieldStatus, battery.getStatus());
         fillField(R.id.fieldCurrent, battery.getCurrent());
         fillField(R.id.fieldPercent, battery.getPercentage());
         fillField(R.id.fieldTemp, battery.getTemp());
         fillField(R.id.fieldVoltage, battery.getVolt());
-        handler.postDelayed(this, UPDATE_INTERVAL);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
@@ -56,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         setContentView(R.layout.activity_main);
         fillField(R.id.fieldWear, battery.getWear());
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
     }
 

@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:stretchColumns="1"
     android:background="@mipmap/fondo">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -29,7 +41,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/missing"
+                android:text="@string/tbloaded"
                 android:id="@+id/fieldStatus"
                 android:layout_gravity="center"
                 android:layout_weight="2"
@@ -59,7 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/missing"
+                android:text="@string/tbloaded"
                 android:id="@+id/fieldCurrent"
                 android:layout_gravity="center"
                 android:layout_weight="2"
@@ -96,7 +108,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/missing"
+                android:text="@string/tbloaded"
                 android:id="@+id/fieldVoltage"
                 android:layout_gravity="center"
                 android:layout_weight="2"
@@ -125,7 +137,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/missing"
+                android:text="@string/tbloaded"
                 android:id="@+id/fieldWear"
                 android:layout_gravity="center"
                 android:layout_weight="2"
@@ -163,7 +175,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/missing"
+                android:text="@string/tbloaded"
                 android:id="@+id/fieldPercent"
                 android:layout_gravity="center"
                 android:layout_weight="2"
@@ -192,7 +204,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/missing"
+                android:text="@string/tbloaded"
                 android:id="@+id/fieldTemp"
                 android:layout_gravity="center"
                 android:layout_weight="2"
@@ -203,3 +215,4 @@
     </LinearLayout>
 
 </TableLayout>
+
