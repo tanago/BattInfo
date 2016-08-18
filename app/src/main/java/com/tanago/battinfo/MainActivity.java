@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     @Override
     protected void onResume() {
         super.onResume();
-        run();
+        if(UpdateInterval.VALUE!=0) run();
     }
 
     @Override

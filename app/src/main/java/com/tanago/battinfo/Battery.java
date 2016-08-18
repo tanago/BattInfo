@@ -44,7 +44,8 @@ class Battery {
         file = new File("/sys/class/power_supply/battery/current_now");
         if (file.exists()) {
             getInfo(file.getAbsolutePath());
-            return data.substring(0, data.length() - 3) + " mA/h";
+            if(data.length() == 6 || data.length() == 7) return data.substring(0, data.length() - 3) + " mA/h";
+            else return data + " mA/h";
         }
 
         file = new File("/sys/class/power_supply/battery/BatteryAverageCurrent");
@@ -67,7 +68,7 @@ class Battery {
     }
 
     protected String getWear() {
-        rewriteSB("Unsupported");
+        rewriteSB("Xperia only");
         File maxCap = new File("/sys/class/power_supply/battery/charge_full");
         File maxCapDesign = new File("/sys/class/power_supply/battery/charge_full_design");
 
