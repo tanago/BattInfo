@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     }
 
     public void run() {
-        handler.postDelayed(this, UpdateInterval.VALUE);
         fillField(R.id.fieldStatus, battery.getStatus());
         fillField(R.id.fieldCurrent, battery.getCurrent());
         fillField(R.id.fieldPercent, battery.getPercentage());
         fillField(R.id.fieldTemp, battery.getTemp());
         fillField(R.id.fieldVoltage, battery.getVolt());
+        handler.postDelayed(this, UpdateInterval.VALUE);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     @Override
     protected void onResume() {
         super.onResume();
-        if(UpdateInterval.VALUE!=0) run();
+        if(UpdateInterval.VALUE>0) run();
     }
 
     @Override
