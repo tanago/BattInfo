@@ -9,29 +9,91 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import java.io.File;
 
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity implements Runnable {
-
-    private Battery battery = new Battery();
     private TextView field;
     private final Handler handler = new Handler();
+    protected static File fileStatus,fileCurrent,fileVoltage,fileCharge,fileTemp;
 
-    protected void fillField(int i, String s) {
+    private void getFiles(){
+        //TODO print unsupported
+        //Status
+        fileStatus = new File("/sys/class/power_supply/battery/status");
+
+        //Charge %
+        fileCharge =  new File("/sys/class/power_supply/battery/capacity");
+
+        //Current
+        if(new File("/sys/class/power_supply/battery/current_now").exists())
+            fileCurrent=new File("/sys/class/power_supply/battery/current_now");
+        else if (new File("/sys/class/power_supply/battery/BatteryAverageCurrent").exists())
+            fileCurrent = new File("/sys/class/power_supply/battery/BatteryAverageCurrent");
+
+        //Voltage
+        if(new File("/sys/class/power_supply/battery/voltage_now").exists())
+            fileVoltage=new File("/sys/class/power_supply/battery/voltage_now");
+        else if (new File("/sys/class/power_supply/battery/batt_vol").exists())
+            fileVoltage = new File("/sys/class/power_supply/battery/batt_vol");
+
+        //Temperature
+        if(new File("/sys/class/power_supply/battery/temp").exists())
+            fileTemp=new File("/sys/class/power_supply/battery/temp");
+        else if (new File("/sys/class/power_supply/battery/batt_temp").exists())
+            fileTemp = new File("/sys/class/power_supply/battery/batt_temp");
+    }
+
+    private final Runnable updater = new Runnable(){
+        public void run(){
+            fillFields();
+            handler.postDelayed(this, UpdateInterval.VALUE);
+        }
+    };
+
+    private void getBatteryStatus(){
+        Battery.getStatus();
+    }
+    private void getBatteryCurrent(){
+        Battery.getCurrent();
+    }
+    private void getBatteryVoltage(){
+        Battery.getVolt();
+    }
+    private void getBatteryWear(){
+        Battery.getWear();
+    }
+    private void getBatteryCharge(){
+        Battery.getCharge();
+    }
+    private void getBatteryTemp(){
+        Battery.getTemp();
+    }
+
+    private void batteryGetters(){
+        getBatteryStatus();
+        getBatteryCurrent();
+        getBatteryVoltage();
+        getBatteryCharge();
+        getBatteryTemp();
+    }
+    private void fillFields(){
+        batteryGetters();
+        printData(Battery.batteryData[0].toString(), R.id.fieldStatus);
+        printData(Battery.batteryData[1].toString(), R.id.fieldCurrent);
+        printData(Battery.batteryData[2].toString(), R.id.fieldVoltage);
+        printData(Battery.batteryData[3].toString(), R.id.fieldCharge);
+        printData(Battery.batteryData[4].toString(), R.id.fieldTemp);
+        System.err.println("updated");
+    }
+
+    protected void printData(String s, int i) {
         field = (TextView) findViewById(i);
         if (field != null) field.setText(s);
     }
 
-    public void run() {
-        fillField(R.id.fieldStatus, battery.getStatus());
-        fillField(R.id.fieldCurrent, battery.getCurrent());
-        fillField(R.id.fieldPercent, battery.getPercentage());
-        fillField(R.id.fieldTemp, battery.getTemp());
-        fillField(R.id.fieldVoltage, battery.getVolt());
-        handler.postDelayed(this, UpdateInterval.VALUE);
-    }
 
-    @Override
+     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
@@ -54,7 +116,11 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fillField(R.id.fieldWear, battery.getWear());
+
+        getFiles();
+
+        getBatteryWear();
+        printData(Battery.getWear(), R.id.fieldWear);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -68,12 +134,12 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     @Override
     protected void onResume() {
         super.onResume();
-        if(UpdateInterval.VALUE>0) run();
+        if(UpdateInterval.VALUE>0) handler.post(updater);
     }
 
     @Override
     protected void onPause() {
-        handler.removeCallbacks(this);
+        handler.removeCallbacks(updater);
         super.onPause();
     }
 

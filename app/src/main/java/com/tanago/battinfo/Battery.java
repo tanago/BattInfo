@@ -6,120 +6,103 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+
 /**
  * Class with the functions that get information from the Android FS
  * Created by tanago on 1.8.2016 г..
  */
 class Battery {
 
-    StringBuilder data = new StringBuilder();
-    BufferedReader buffRdr;
-    File file;
+    //protected static StringBuilder dataStatus, dataCurrent, dataVoltage, dataCharge, dataTemp;
+    protected static StringBuilder[] batteryData = new StringBuilder[5];
 
-    private void rewriteSB(String info) {
-        data = new StringBuilder();
-        data.append(info);
-    }
-
-    private void getInfo(String filePath) {
+    private static String getInfo(String filePath) {
+        String temp;
         try {
-            buffRdr = new BufferedReader(new FileReader(filePath));
-            rewriteSB(buffRdr.readLine());
+            BufferedReader buffRdr = new BufferedReader(new FileReader(filePath));
+            temp = buffRdr.readLine();
+            System.err.println("GetInfo() of " + filePath + " returned: " + temp);
+            return temp;
         } catch (IOException e) {
             System.err.println("Error while reading " + filePath);
         }
-
+        System.err.println("BUllSHIET");
+        return "";
     }
 
-    protected String getStatus() {
-        rewriteSB("Unsupported");
-        file = new File("/sys/class/power_supply/battery/status");
-        getInfo(file.getAbsolutePath());
-        return data.toString();
+    protected static String getStatus() {
+        batteryData[0] = new StringBuilder();
+        batteryData[0].append(getInfo(MainActivity.fileStatus.getAbsolutePath()));
+        return batteryData[0].toString();
     }
 
-    protected String getCurrent() {
-        rewriteSB("Unsupported");
+    protected static String getCurrent() {
+        batteryData[1] = new StringBuilder();
 
-        file = new File("/sys/class/power_supply/battery/current_now");
-        if (file.exists()) {
-            getInfo(file.getAbsolutePath());
-            if(data.length() < 6) return data + " mA/h";
-            else return data.substring(0, data.length() - 3) + " mA/h";
+        if (MainActivity.fileCurrent.getName().equals("current_now")) {
+            batteryData[1].append(getInfo(MainActivity.fileCurrent.getAbsolutePath()));
+
+            if (batteryData[1].length() < 5)
+                return batteryData[1].toString() + " mA/h";
+
+            else return batteryData[1].substring(0, batteryData[1].length() - 3) + " mA/h";
+
+        } else {
+
+            System.err.println("entered else");
+            //if (MainActivity.fileCurrent.getName() == "BatteryAverageCurrent")
+            batteryData[1].append(getInfo(MainActivity.fileCurrent.getAbsolutePath()));
+            return batteryData[1].toString() + " mA/h";
         }
+    }
 
-        file = new File("/sys/class/power_supply/battery/BatteryAverageCurrent");
-        if (file.exists()) {
-            getInfo(file.getAbsolutePath());
-            return data.toString() + " mA/h";
+    protected static String getVolt() {
+        batteryData[2] = new StringBuilder();
+
+        if (MainActivity.fileVoltage.getName().equals("voltage_now")) {
+            batteryData[2].append(getInfo(MainActivity.fileVoltage.getAbsolutePath()));
+            return batteryData[2].delete(batteryData[2].length() - 4, batteryData[2].length() - 1).insert(1, ',').append(" V").toString();
+        } else {
+            //if (MainActivity.fileVoltage.getName() == "batt_vol") {
+
+            batteryData[2].append(getInfo(MainActivity.fileVoltage.getAbsolutePath()));
+            return batteryData[2].insert(1, ',').append(" V").toString();
         }
-
-        return data.toString();
     }
 
-    protected String getPercentage() {
-        rewriteSB("Unsupported");
-        file = new File("/sys/class/power_supply/battery/capacity");
-        if (!file.exists()) return data.toString();
-
-        getInfo(file.getAbsolutePath());
-        data.append("%");
-        return data.toString();
-    }
-
-    protected String getWear() {
-        rewriteSB("Xperia only");
+    protected static String getWear() {
         File maxCap = new File("/sys/class/power_supply/battery/charge_full");
         File maxCapDesign = new File("/sys/class/power_supply/battery/charge_full_design");
 
+
         if (!(maxCap.exists() && maxCapDesign.exists())) {
             System.err.println("Missing Battery Wear file(s)");
-            return data.toString();
+            return "Xperia Only!";
         }
-        getInfo(maxCap.getAbsolutePath());
-        int maxCapInt = Integer.parseInt(data.toString());
-        getInfo(maxCapDesign.getAbsolutePath());
-        int maxCapDesignInt = Integer.parseInt(data.toString());
+
+        int maxCapInt = Integer.parseInt(getInfo(maxCap.getAbsolutePath()));
+        int maxCapDesignInt = Integer.parseInt(getInfo(maxCapDesign.getAbsolutePath()));
+        System.err.println("wear: " + maxCapInt + " / " + maxCapDesignInt);
 
         int wearlvl = 100 - (maxCapInt / maxCapDesignInt) * 100;
         if (wearlvl < 0) wearlvl = 0;
+
         return String.valueOf(wearlvl) + "%";
     }
 
+    protected static String getCharge() {
+        batteryData[3] = new StringBuilder();
+        batteryData[3].append(getInfo(MainActivity.fileCharge.getAbsolutePath()));
 
-    protected String getTemp() {
-        rewriteSB("Unsupported");
-
-        file = new File("/sys/class/power_supply/battery/temp");
-        if (file.exists()) {
-            getInfo(file.getAbsolutePath());
-            return data.insert(data.length() - 1, ',').append('°').toString();
-        }
-
-        file = new File("/sys/class/power_supply/battery/batt_temp");
-        if (file.exists()) {
-            getInfo(file.getAbsolutePath());
-            return data.insert(data.length() - 1, ',').append('°').toString();
-        }
-
-        return data.toString();
+        return batteryData[3].append("%").toString();
     }
 
-    protected String getVolt() {
-        rewriteSB("Unsupported");
+    protected static String getTemp() {
+        batteryData[4] = new StringBuilder();
 
-        file = new File("/sys/class/power_supply/battery/voltage_now");
-        if (file.exists()) {
-            getInfo(file.getAbsolutePath());
-            return data.delete(data.length() - 4, data.length() - 1).insert(1, ',').append(" V").toString();
-        }
+        batteryData[4].append(getInfo(MainActivity.fileTemp.getAbsolutePath()));
 
-        file = new File("/sys/class/power_supply/battery/batt_vol");
-        if (file.exists()) {
-            getInfo(file.getAbsolutePath());
-            return data.insert(1, ',').append(" V").toString();
-        }
-
-        return data.toString();
+        return batteryData[4].insert(batteryData[4].length() - 1, ',').append('°').toString();
     }
+
 }
