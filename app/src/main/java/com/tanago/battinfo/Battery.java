@@ -27,40 +27,46 @@ class Battery {
     }
 
     protected String getStatus(String filename) {
-        if (filename.equals("status"))
-            return getInfo(battDir + filename);
-        else return "Unsupported";
+        switch (filename) {
+            case "status":
+                return getInfo(battDir + filename);
+            default:
+                return "Unsupported";
+        }
     }
 
     protected String getCurrent(String filename) {
 
-        if (filename.equals("current_now")) {
-            temporary = Integer.parseInt(getInfo(battDir + filename));
-            System.err.println(temporary);
+        switch (filename) {
+            case "current_now":
+                temporary = Integer.parseInt(getInfo(battDir + filename));
+                System.err.println(temporary + " mA/h");
+                if (Math.abs(temporary) < 2000) return temporary + " mA/h";
+                else
+                    return temporary / 1000 + " mA/h";
 
-            //TODO check for 5 seconds if its 3 digits format or 6
+            case "BatteryAverageCurrent":
+            case "batt_current":
+                return getInfo(battDir + filename) + " mA/h";
 
-            if (Math.abs(temporary) < 2000) return temporary + " mA/h";
-            else
-                return temporary / 1000 + " mA/h";
-
-        } else if (filename.equals("BatteryAverageCurrent") || filename.equals("batt_current")) {
-            return getInfo(battDir + filename) + " mA/h";
-
+            default:
+                return "Unsupported";
         }
-        else return "Unsupported";
     }
 
     protected String getVolt(String filename) {
-        if (!filename.equals("missing")) {
-            temporary = Integer.parseInt(getInfo(battDir + filename)) / 1000;
-            if (filename.equals("voltage_now"))
-                return (double) temporary / 1000 + " V";
-            else
-                // if (filename.equals("batt_vol")
-                return temporary + " V";
+        switch (filename) {
+            case "missing":
+                return "Unsupported";
+            default:
+                temporary = Integer.parseInt(getInfo(battDir + filename)) / 1000;
+                if (filename.equals("voltage_now"))
+                    return (double) temporary / 1000 + " V";
+                else
+                    // if (filename.equals("batt_vol")
+                    return temporary + " V";
 
-        } else return "Unsupported";
+        }
     }
 
     protected String getWear() {
@@ -84,15 +90,22 @@ class Battery {
     }
 
     protected String getCharge(String filename) {
-        if (filename.equals("capacity"))
-            return getInfo(battDir + filename) + "%";
-        else return "Unsupported";
+        switch (filename) {
+            case "capacity":
+                return getInfo(battDir + filename) + "%";
+            default:
+                return "Unsupported";
+        }
     }
 
     protected String getTemp(String filename) {
-        if (filename.equals("temp") || filename.equals("batt_temp")) {
-            return Double.parseDouble(getInfo(battDir + filename)) / 10 + "°";
-        } else return "Unsupported";
+        switch (filename) {
+            case "temp":
+            case "batt_temp":
+                return Double.parseDouble(getInfo(battDir + filename)) / 10 + "°";
+            default:
+                return "Unsupported";
+        }
     }
 
 }
