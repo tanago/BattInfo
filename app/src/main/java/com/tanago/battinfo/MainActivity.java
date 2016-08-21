@@ -15,34 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView field;
     private final Handler handler = new Handler();
-    protected static File fileStatus,fileCurrent,fileVoltage,fileCharge,fileTemp;
-
-    private void getFiles(){
-        //TODO print unsupported
-        //Status
-        fileStatus = new File("/sys/class/power_supply/battery/status");
-
-        //Charge %
-        fileCharge =  new File("/sys/class/power_supply/battery/capacity");
-
-        //Current
-        if(new File("/sys/class/power_supply/battery/current_now").exists())
-            fileCurrent=new File("/sys/class/power_supply/battery/current_now");
-        else if (new File("/sys/class/power_supply/battery/BatteryAverageCurrent").exists())
-            fileCurrent = new File("/sys/class/power_supply/battery/BatteryAverageCurrent");
-
-        //Voltage
-        if(new File("/sys/class/power_supply/battery/voltage_now").exists())
-            fileVoltage=new File("/sys/class/power_supply/battery/voltage_now");
-        else if (new File("/sys/class/power_supply/battery/batt_vol").exists())
-            fileVoltage = new File("/sys/class/power_supply/battery/batt_vol");
-
-        //Temperature
-        if(new File("/sys/class/power_supply/battery/temp").exists())
-            fileTemp=new File("/sys/class/power_supply/battery/temp");
-        else if (new File("/sys/class/power_supply/battery/batt_temp").exists())
-            fileTemp = new File("/sys/class/power_supply/battery/batt_temp");
-    }
 
     private final Runnable updater = new Runnable(){
         public void run(){
@@ -51,39 +23,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void getBatteryStatus(){
-        Battery.getStatus();
-    }
-    private void getBatteryCurrent(){
-        Battery.getCurrent();
-    }
-    private void getBatteryVoltage(){
-        Battery.getVolt();
-    }
-    private void getBatteryWear(){
-        Battery.getWear();
-    }
-    private void getBatteryCharge(){
-        Battery.getCharge();
-    }
-    private void getBatteryTemp(){
-        Battery.getTemp();
-    }
-
-    private void batteryGetters(){
-        getBatteryStatus();
-        getBatteryCurrent();
-        getBatteryVoltage();
-        getBatteryCharge();
-        getBatteryTemp();
-    }
     private void fillFields(){
-        batteryGetters();
-        printData(Battery.batteryData[0].toString(), R.id.fieldStatus);
-        printData(Battery.batteryData[1].toString(), R.id.fieldCurrent);
-        printData(Battery.batteryData[2].toString(), R.id.fieldVoltage);
-        printData(Battery.batteryData[3].toString(), R.id.fieldCharge);
-        printData(Battery.batteryData[4].toString(), R.id.fieldTemp);
+        //TODO dont update unsupported (onCreate?)
+        printData(Battery.getStatus(), R.id.fieldStatus);
+        printData(Battery.getCurrent(), R.id.fieldCurrent);
+        printData(Battery.getVolt(), R.id.fieldVoltage);
+        printData(Battery.getCharge(), R.id.fieldCharge);
+        printData(Battery.getTemp(), R.id.fieldTemp);
         System.err.println("updated");
     }
 
@@ -116,11 +62,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        getFiles();
-
-        getBatteryWear();
-        printData(Battery.getWear(), R.id.fieldWear);
+        BatteryFiles.getFiles();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -134,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        printData(Battery.getWear(), R.id.fieldWear);
         if(UpdateInterval.VALUE>0) handler.post(updater);
     }
 

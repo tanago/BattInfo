@@ -13,61 +13,52 @@ import java.io.IOException;
  */
 class Battery {
 
-    //protected static StringBuilder dataStatus, dataCurrent, dataVoltage, dataCharge, dataTemp;
-    protected static StringBuilder[] batteryData = new StringBuilder[5];
+    //TODO Not static
+    private static int temp;
 
-    private static String getInfo(String filePath) {
-        String temp;
+    private static String getInfo(File filePath) {
         try {
             BufferedReader buffRdr = new BufferedReader(new FileReader(filePath));
-            temp = buffRdr.readLine();
-            System.err.println("GetInfo() of " + filePath + " returned: " + temp);
-            return temp;
+            return buffRdr.readLine();
         } catch (IOException e) {
             System.err.println("Error while reading " + filePath);
         }
-        System.err.println("BUllSHIET");
         return "";
     }
 
     protected static String getStatus() {
-        batteryData[0] = new StringBuilder();
-        batteryData[0].append(getInfo(MainActivity.fileStatus.getAbsolutePath()));
-        return batteryData[0].toString();
+        if (BatteryFiles.batteryStatusFilepath.getName().equals("status"))
+            return getInfo(BatteryFiles.batteryStatusFilepath);
+        else return "Unsupported";
     }
 
     protected static String getCurrent() {
-        batteryData[1] = new StringBuilder();
 
-        if (MainActivity.fileCurrent.getName().equals("current_now")) {
-            batteryData[1].append(getInfo(MainActivity.fileCurrent.getAbsolutePath()));
+        if (BatteryFiles.batteryCurrentFilepath.getName().equals("current_now")) {
+            temp = Integer.parseInt(getInfo(BatteryFiles.batteryCurrentFilepath));
+            System.err.println(temp);
 
-            if (batteryData[1].length() < 5)
-                return batteryData[1].toString() + " mA/h";
+            //TODO check for 5 seconds if its 3 digits format or 6
 
-            else return batteryData[1].substring(0, batteryData[1].length() - 3) + " mA/h";
+            if (Math.abs(temp) < 1000) return temp + " mA/h";
+            else
+                return temp / 1000 + " mA/h";
 
-        } else {
-
-            System.err.println("entered else");
-            //if (MainActivity.fileCurrent.getName() == "BatteryAverageCurrent")
-            batteryData[1].append(getInfo(MainActivity.fileCurrent.getAbsolutePath()));
-            return batteryData[1].toString() + " mA/h";
-        }
+        } else if (BatteryFiles.batteryCurrentFilepath.getName().equals("BatteryAverageCurrent")) {
+            return getInfo(BatteryFiles.batteryCurrentFilepath) + " mA/h";
+        } else return "Unsupported";
     }
 
     protected static String getVolt() {
-        batteryData[2] = new StringBuilder();
+        if (!BatteryFiles.batteryVoltageFilepath.getName().equals("missing")) {
+            temp = Integer.parseInt(getInfo(BatteryFiles.batteryVoltageFilepath)) / 1000;
+            if (BatteryFiles.batteryVoltageFilepath.getName().equals("voltage_now"))
+                return (double) temp / 1000 + " V";
+            else
+                // if (BatteryFiles.batteryVoltageFilepath.getName().equals("batt_vol")
+                return temp + " V";
 
-        if (MainActivity.fileVoltage.getName().equals("voltage_now")) {
-            batteryData[2].append(getInfo(MainActivity.fileVoltage.getAbsolutePath()));
-            return batteryData[2].delete(batteryData[2].length() - 4, batteryData[2].length() - 1).insert(1, ',').append(" V").toString();
-        } else {
-            //if (MainActivity.fileVoltage.getName() == "batt_vol") {
-
-            batteryData[2].append(getInfo(MainActivity.fileVoltage.getAbsolutePath()));
-            return batteryData[2].insert(1, ',').append(" V").toString();
-        }
+        } else return "Unsupported";
     }
 
     protected static String getWear() {
@@ -80,8 +71,8 @@ class Battery {
             return "Xperia Only!";
         }
 
-        int maxCapInt = Integer.parseInt(getInfo(maxCap.getAbsolutePath()));
-        int maxCapDesignInt = Integer.parseInt(getInfo(maxCapDesign.getAbsolutePath()));
+        int maxCapInt = Integer.parseInt(getInfo(maxCap));
+        int maxCapDesignInt = Integer.parseInt(getInfo(maxCapDesign));
         System.err.println("wear: " + maxCapInt + " / " + maxCapDesignInt);
 
         int wearlvl = 100 - (maxCapInt / maxCapDesignInt) * 100;
@@ -91,18 +82,15 @@ class Battery {
     }
 
     protected static String getCharge() {
-        batteryData[3] = new StringBuilder();
-        batteryData[3].append(getInfo(MainActivity.fileCharge.getAbsolutePath()));
-
-        return batteryData[3].append("%").toString();
+        if (BatteryFiles.batteryChargeFilepath.getName().equals("capacity"))
+            return getInfo(BatteryFiles.batteryChargeFilepath) + "%";
+        else return "Unsupported";
     }
 
     protected static String getTemp() {
-        batteryData[4] = new StringBuilder();
-
-        batteryData[4].append(getInfo(MainActivity.fileTemp.getAbsolutePath()));
-
-        return batteryData[4].insert(batteryData[4].length() - 1, ',').append('°').toString();
+        if (!BatteryFiles.batteryTempFilepath.getName().equals("missing")) {
+            return Double.parseDouble(getInfo(BatteryFiles.batteryTempFilepath)) / 10 + "°";
+        } else return "Unsupported";
     }
 
 }
