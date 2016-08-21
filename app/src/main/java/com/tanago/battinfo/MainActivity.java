@@ -15,7 +15,18 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView field;
     private final Handler handler = new Handler();
-    private Battery battery= new Battery();
+    private final Battery battery= new Battery();
+    private final BatteryFiles batteryFiles = new BatteryFiles();
+    private String statusFile,currentFile,voltageFile,chargeFile,tempFile;
+
+    void getFiles() {
+        statusFile=batteryFiles.getStatusFile();
+        currentFile=batteryFiles.getCurrentFile();
+        voltageFile=batteryFiles.getVoltageFile();
+        chargeFile=batteryFiles.getChargeFile();
+        tempFile=batteryFiles.getTempFile();
+    }
+
 
     private final Runnable updater = new Runnable(){
         public void run(){
@@ -26,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillFields(){
         //TODO dont update unsupported (onCreate?)
-        printData(battery.getStatus(), R.id.fieldStatus);
-        printData(battery.getCurrent(), R.id.fieldCurrent);
-        printData(battery.getVolt(), R.id.fieldVoltage);
-        printData(battery.getCharge(), R.id.fieldCharge);
-        printData(battery.getTemp(), R.id.fieldTemp);
+        printData(battery.getStatus(statusFile), R.id.fieldStatus);
+        printData(battery.getCurrent(currentFile), R.id.fieldCurrent);
+        printData(battery.getVolt(voltageFile), R.id.fieldVoltage);
+        printData(battery.getCharge(chargeFile), R.id.fieldCharge);
+        printData(battery.getTemp(tempFile), R.id.fieldTemp);
         System.err.println("updated");
     }
 
@@ -63,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BatteryFiles.getFiles();
+        getFiles();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);

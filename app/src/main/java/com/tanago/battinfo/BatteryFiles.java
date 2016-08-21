@@ -9,50 +9,43 @@ import java.io.File;
 public class BatteryFiles {
 
     //TODO check ?exist in new Class (+)only 1 check/(-)more classes
-    public static File batteryStatusFilepath, batteryCurrentFilepath, batteryVoltageFilepath, batteryChargeFilepath, batteryTempFilepath;
+    //public static File batteryStatusFilepath, batteryCurrentFilepath, batteryVoltageFilepath, batteryChargeFilepath, batteryTempFilepath;
 
-    static void getFiles() {
-        getStatusFile();
-        getCurrentFile();
-        getVoltageFile();
-        getChargeFile();
-        getTempFile();
-    }
 
-    private static void getStatusFile() {
+    String getStatusFile() {
         if (new File("/sys/class/power_supply/battery/status").exists())
-            batteryStatusFilepath = new File("/sys/class/power_supply/battery/status");
-        else batteryStatusFilepath = new File("missing");
+            return "status";
+        return "missing";
     }
 
-    private static void getCurrentFile() {
+    String getCurrentFile() {
         if(new File("/sys/class/power_supply/battery/current_now").exists())
-            batteryCurrentFilepath=new File("/sys/class/power_supply/battery/current_now");
+            return "current_now";
         else if (new File("/sys/class/power_supply/battery/BatteryAverageCurrent").exists())
-            batteryCurrentFilepath = new File("/sys/class/power_supply/battery/BatteryAverageCurrent");
-        else batteryCurrentFilepath = new File("missing");
+            return "BatteryAverageCurrent";
+        return "missing";
     }
 
-    private static void getVoltageFile() {
+    String getVoltageFile() {
         if(new File("/sys/class/power_supply/battery/voltage_now").exists())
-            batteryVoltageFilepath=new File("/sys/class/power_supply/battery/voltage_now");
+            return "voltage_now";
         else if (new File("/sys/class/power_supply/battery/batt_vol").exists())
-            batteryVoltageFilepath = new File("/sys/class/power_supply/battery/batt_vol");
-        else batteryVoltageFilepath = new File("missing");
+            return "batt_vol";
+        return "missing";
     }
 
-    private static void getChargeFile() {
+    String getChargeFile() {
         if (new File("/sys/class/power_supply/battery/capacity").exists())
-            batteryChargeFilepath = new File("/sys/class/power_supply/battery/capacity");
-        else batteryChargeFilepath = new File("missing");
+            return "capacity";
+        return "missing";
     }
 
-    private static void getTempFile() {
+    String getTempFile() {
         if(new File("/sys/class/power_supply/battery/temp").exists())
-            batteryTempFilepath=new File("/sys/class/power_supply/battery/temp");
+            return "temp";
         else if (new File("/sys/class/power_supply/battery/batt_temp").exists())
-            batteryTempFilepath = new File("/sys/class/power_supply/battery/batt_temp");
-        else batteryTempFilepath = new File("missing");
+            return "batt_temp";
+        return "missing";
 
     }
 

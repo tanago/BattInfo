@@ -13,11 +13,10 @@ import java.io.IOException;
  */
 class Battery {
 
-//TODO
-//    File /sys/class/... pass filename to function
-    private int temp;
+    private final String battDir = "/sys/class/power_supply/battery/";
+    private int temporary;
 
-    private String getInfo(File filePath) {
+    private String getInfo(String filePath) {
         try {
             BufferedReader buffRdr = new BufferedReader(new FileReader(filePath));
             return buffRdr.readLine();
@@ -27,37 +26,39 @@ class Battery {
         return "";
     }
 
-    protected String getStatus() {
-        if (BatteryFiles.batteryStatusFilepath.getName().equals("status"))
-            return getInfo(BatteryFiles.batteryStatusFilepath);
+    protected String getStatus(String filename) {
+        if (filename.equals("status"))
+            return getInfo(battDir + filename);
         else return "Unsupported";
     }
 
-    protected String getCurrent() {
+    protected String getCurrent(String filename) {
 
-        if (BatteryFiles.batteryCurrentFilepath.getName().equals("current_now")) {
-            temp = Integer.parseInt(getInfo(BatteryFiles.batteryCurrentFilepath));
-            System.err.println(temp);
+        if (filename.equals("current_now")) {
+            temporary = Integer.parseInt(getInfo(battDir + filename));
+            System.err.println(temporary);
 
             //TODO check for 5 seconds if its 3 digits format or 6
 
-            if (Math.abs(temp) < 1000) return temp + " mA/h";
+            if (Math.abs(temporary) < 2000) return temporary + " mA/h";
             else
-                return temp / 1000 + " mA/h";
+                return temporary / 1000 + " mA/h";
 
-        } else if (BatteryFiles.batteryCurrentFilepath.getName().equals("BatteryAverageCurrent")) {
-            return getInfo(BatteryFiles.batteryCurrentFilepath) + " mA/h";
-        } else return "Unsupported";
+        } else if (filename.equals("BatteryAverageCurrent") || filename.equals("batt_current")) {
+            return getInfo(battDir + filename) + " mA/h";
+
+        }
+        else return "Unsupported";
     }
 
-    protected String getVolt() {
-        if (!BatteryFiles.batteryVoltageFilepath.getName().equals("missing")) {
-            temp = Integer.parseInt(getInfo(BatteryFiles.batteryVoltageFilepath)) / 1000;
-            if (BatteryFiles.batteryVoltageFilepath.getName().equals("voltage_now"))
-                return (double) temp / 1000 + " V";
+    protected String getVolt(String filename) {
+        if (!filename.equals("missing")) {
+            temporary = Integer.parseInt(getInfo(battDir + filename)) / 1000;
+            if (filename.equals("voltage_now"))
+                return (double) temporary / 1000 + " V";
             else
-                // if (BatteryFiles.batteryVoltageFilepath.getName().equals("batt_vol")
-                return temp + " V";
+                // if (filename.equals("batt_vol")
+                return temporary + " V";
 
         } else return "Unsupported";
     }
@@ -69,11 +70,11 @@ class Battery {
 
         if (!(maxCap.exists() && maxCapDesign.exists())) {
             System.err.println("Missing Battery Wear file(s)");
-            return "Xperia Only!";
+            return "Unsupported";
         }
 
-        int maxCapInt = Integer.parseInt(getInfo(maxCap));
-        int maxCapDesignInt = Integer.parseInt(getInfo(maxCapDesign));
+        int maxCapInt = Integer.parseInt(getInfo(maxCap.getAbsolutePath()));
+        int maxCapDesignInt = Integer.parseInt(getInfo(maxCapDesign.getAbsolutePath()));
         System.err.println("wear: " + maxCapInt + " / " + maxCapDesignInt);
 
         int wearlvl = 100 - (maxCapInt / maxCapDesignInt) * 100;
@@ -82,15 +83,15 @@ class Battery {
         return String.valueOf(wearlvl) + "%";
     }
 
-    protected String getCharge() {
-        if (BatteryFiles.batteryChargeFilepath.getName().equals("capacity"))
-            return getInfo(BatteryFiles.batteryChargeFilepath) + "%";
+    protected String getCharge(String filename) {
+        if (filename.equals("capacity"))
+            return getInfo(battDir + filename) + "%";
         else return "Unsupported";
     }
 
-    protected String getTemp() {
-        if (!BatteryFiles.batteryTempFilepath.getName().equals("missing")) {
-            return Double.parseDouble(getInfo(BatteryFiles.batteryTempFilepath)) / 10 + "°";
+    protected String getTemp(String filename) {
+        if (filename.equals("temp") || filename.equals("batt_temp")) {
+            return Double.parseDouble(getInfo(battDir + filename)) / 10 + "°";
         } else return "Unsupported";
     }
 
