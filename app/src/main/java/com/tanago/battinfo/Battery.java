@@ -13,10 +13,11 @@ import java.io.IOException;
  */
 class Battery {
 
-    //TODO Not static
-    private static int temp;
+//TODO
+//    File /sys/class/... pass filename to function
+    private int temp;
 
-    private static String getInfo(File filePath) {
+    private String getInfo(File filePath) {
         try {
             BufferedReader buffRdr = new BufferedReader(new FileReader(filePath));
             return buffRdr.readLine();
@@ -26,13 +27,13 @@ class Battery {
         return "";
     }
 
-    protected static String getStatus() {
+    protected String getStatus() {
         if (BatteryFiles.batteryStatusFilepath.getName().equals("status"))
             return getInfo(BatteryFiles.batteryStatusFilepath);
         else return "Unsupported";
     }
 
-    protected static String getCurrent() {
+    protected String getCurrent() {
 
         if (BatteryFiles.batteryCurrentFilepath.getName().equals("current_now")) {
             temp = Integer.parseInt(getInfo(BatteryFiles.batteryCurrentFilepath));
@@ -49,7 +50,7 @@ class Battery {
         } else return "Unsupported";
     }
 
-    protected static String getVolt() {
+    protected String getVolt() {
         if (!BatteryFiles.batteryVoltageFilepath.getName().equals("missing")) {
             temp = Integer.parseInt(getInfo(BatteryFiles.batteryVoltageFilepath)) / 1000;
             if (BatteryFiles.batteryVoltageFilepath.getName().equals("voltage_now"))
@@ -61,7 +62,7 @@ class Battery {
         } else return "Unsupported";
     }
 
-    protected static String getWear() {
+    protected String getWear() {
         File maxCap = new File("/sys/class/power_supply/battery/charge_full");
         File maxCapDesign = new File("/sys/class/power_supply/battery/charge_full_design");
 
@@ -81,13 +82,13 @@ class Battery {
         return String.valueOf(wearlvl) + "%";
     }
 
-    protected static String getCharge() {
+    protected String getCharge() {
         if (BatteryFiles.batteryChargeFilepath.getName().equals("capacity"))
             return getInfo(BatteryFiles.batteryChargeFilepath) + "%";
         else return "Unsupported";
     }
 
-    protected static String getTemp() {
+    protected String getTemp() {
         if (!BatteryFiles.batteryTempFilepath.getName().equals("missing")) {
             return Double.parseDouble(getInfo(BatteryFiles.batteryTempFilepath)) / 10 + "°";
         } else return "Unsupported";

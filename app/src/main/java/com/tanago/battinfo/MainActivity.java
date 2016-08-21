@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView field;
     private final Handler handler = new Handler();
+    private Battery battery= new Battery();
 
     private final Runnable updater = new Runnable(){
         public void run(){
@@ -25,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillFields(){
         //TODO dont update unsupported (onCreate?)
-        printData(Battery.getStatus(), R.id.fieldStatus);
-        printData(Battery.getCurrent(), R.id.fieldCurrent);
-        printData(Battery.getVolt(), R.id.fieldVoltage);
-        printData(Battery.getCharge(), R.id.fieldCharge);
-        printData(Battery.getTemp(), R.id.fieldTemp);
+        printData(battery.getStatus(), R.id.fieldStatus);
+        printData(battery.getCurrent(), R.id.fieldCurrent);
+        printData(battery.getVolt(), R.id.fieldVoltage);
+        printData(battery.getCharge(), R.id.fieldCharge);
+        printData(battery.getTemp(), R.id.fieldTemp);
         System.err.println("updated");
     }
 
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        printData(Battery.getWear(), R.id.fieldWear);
+        printData(battery.getWear(), R.id.fieldWear);
         if(UpdateInterval.VALUE>0) handler.post(updater);
     }
 
