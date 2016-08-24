@@ -1,9 +1,11 @@
 package com.tanago.battinfo;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         printData(battery.getWear(), R.id.fieldWear);
         if(UpdateInterval.VALUE>0) handler.post(updater);
+
     }
 
     @Override
