@@ -49,4 +49,17 @@
             android:max="9" />
     </TableRow>
 
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/track_button"
+            android:id="@+id/buttonTrack"
+            android:onClick="onTrackButtonPress" />
+    </TableRow>
+
 </LinearLayout>

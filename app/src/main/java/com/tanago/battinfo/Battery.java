@@ -15,6 +15,7 @@ class Battery {
 
     private final String battDir = "/sys/class/power_supply/battery/";
     private int temporary;
+    private double calculations;
 
     private String getInfo(String filePath) {
         try {
@@ -47,7 +48,9 @@ class Battery {
 
             case "BatteryAverageCurrent":
             case "batt_current":
-                return getInfo(battDir + filename) + " mA/h";
+                String temp = getInfo(battDir + filename) + " mA/h";
+                System.err.println(temp);
+                return temp;
 
             default:
                 return "Unsupported";
@@ -59,7 +62,9 @@ class Battery {
             case "missing":
                 return "Unsupported";
             default:
-                temporary = Integer.parseInt(getInfo(battDir + filename)) / 1000;
+                temporary = Integer.parseInt(getInfo(battDir + filename));
+                if(temporary>Math.pow(10,6)) temporary /= 1000;
+// TODO
                 if (filename.equals("voltage_now"))
                     return (double) temporary / 1000 + " V";
                 else
