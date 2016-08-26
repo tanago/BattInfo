@@ -3,6 +3,7 @@ package com.tanago.battinfo;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -14,6 +15,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     private static SeekBar updateIntervalSeekBar;
     private static TextView interval_value;
+    String currentFile, currentData;
+    private final BatteryFiles batteryFiles = new BatteryFiles();
+    private final Handler handler = new Handler();
+    private final Battery battery = new Battery();
+    NotificationCompat.Builder mBuilder;
+    NotificationManager mNotifyMgr;
+    private final int mNotificationId = 001;
 
 
     @Override
@@ -53,6 +61,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    private final Runnable currentRefresher = new Runnable(){
+        public void run(){
+
+            mBuilder.setContentText(battery.getCurrent(currentFile));
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+            handler.postDelayed(this, 5000);
+        }
+    };
     public void minimizeApp() {
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
@@ -61,12 +77,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onTrackButtonPress(View v){
-        String statusbarText="Hi!";
-        NotificationCompat.Builder mBuilder =
+        mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.statusbaricon)
                         .setContentTitle("BattInfo")
-                        .setContentText(statusbarText);
+                        .setContentText(currentData);
         Intent resultIntent = new Intent(this, SettingsActivity.class);
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
@@ -76,10 +91,12 @@ public class SettingsActivity extends AppCompatActivity {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
-       int mNotificationId = 001;
-        NotificationManager mNotifyMgr =
+
+        mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        currentFile=batteryFiles.getCurrentFile();
+        handler.post(currentRefresher);
         minimizeApp();
     }
 }
