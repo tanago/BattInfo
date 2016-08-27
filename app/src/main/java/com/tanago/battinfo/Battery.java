@@ -42,9 +42,10 @@ class Battery {
                 return "Unsupported";
             default:
                 temporary = Integer.parseInt(getInfo(battDir + filename));
-                if (Math.abs(temporary) < 2000) return temporary + " mA/h";
+                System.err.println(temporary);
+                if (Math.abs(temporary) < 2000) return String.valueOf(temporary);
                 else
-                    return temporary / 1000 + " mA/h";
+                    return String.valueOf(temporary / 1000);
         }
     }
 
@@ -55,7 +56,7 @@ class Battery {
             default:
                 temporary = Integer.parseInt(getInfo(battDir + filename));
                 if (temporary > Math.pow(10, 6)) temporary /= 1000;
-                return (double) temporary / 1000 + " V";
+                return String.valueOf((double) temporary / 1000);
         }
     }
 
@@ -64,7 +65,7 @@ class Battery {
             case "missing":
                 return "Unsupported";
             default:
-                return getInfo(battDir + filename) + "%";
+                return getInfo(battDir + filename);
 
         }
     }
@@ -74,7 +75,7 @@ class Battery {
             case "missing":
                 return "Unsupported";
             default:
-                return Double.parseDouble(getInfo(battDir + filename)) / 10 + "°";
+                return String.valueOf(Double.parseDouble(getInfo(battDir + filename)) / 10);
         }
     }
 

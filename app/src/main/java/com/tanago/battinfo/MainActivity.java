@@ -35,12 +35,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void fillFields(){
-        //TODO dont update unsupported (onCreate?)
         printData(battery.getStatus(statusFile), R.id.fieldStatus);
-        printData(battery.getCurrent(currentFile), R.id.fieldCurrent);
-        printData(battery.getVolt(voltageFile), R.id.fieldVoltage);
-        printData(battery.getCharge(chargeFile), R.id.fieldCharge);
-        printData(battery.getTemp(tempFile), R.id.fieldTemp);
+        printData(battery.getCurrent(currentFile) + " mA/h", R.id.fieldCurrent);
+        printData(battery.getVolt(voltageFile) + " V", R.id.fieldVoltage);
+        printData(battery.getCharge(chargeFile) + "%", R.id.fieldCharge);
+        printData(battery.getTemp(tempFile) + "°", R.id.fieldTemp);
         System.err.println("updated");
     }
 

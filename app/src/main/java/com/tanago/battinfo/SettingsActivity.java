@@ -16,8 +16,8 @@ public class SettingsActivity extends AppCompatActivity {
     private static SeekBar updateIntervalSeekBar;
     private static TextView interval_value;
     String currentFile, currentData;
-    private final BatteryFiles batteryFiles = new BatteryFiles();
     private final Handler handler = new Handler();
+    private final BatteryFiles batteryFiles = new BatteryFiles();
     private final Battery battery = new Battery();
     NotificationCompat.Builder mBuilder;
     NotificationManager mNotifyMgr;
