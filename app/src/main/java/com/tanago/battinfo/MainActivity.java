@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 openSettings();
                 return true;
+            case R.id.action_graph:
+                openGraph();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -102,4 +105,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(intent);
     }
+    public void openGraph() {
+        Intent intent = new Intent(getApplicationContext(), GraphActivity.class);
+        startActivity(intent);
+    }
+
+
 }

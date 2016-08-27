@@ -15,7 +15,6 @@ class Battery {
 
     private final String battDir = "/sys/class/power_supply/battery/";
     private int temporary;
-    private double calculations;
 
     private String getInfo(String filePath) {
         try {
@@ -29,31 +28,23 @@ class Battery {
 
     protected String getStatus(String filename) {
         switch (filename) {
-            case "status":
-                return getInfo(battDir + filename);
-            default:
+            case "missing":
                 return "Unsupported";
+            default:
+                return getInfo(battDir + filename);
         }
     }
 
     protected String getCurrent(String filename) {
 
         switch (filename) {
-            case "current_now":
+            case "missing":
+                return "Unsupported";
+            default:
                 temporary = Integer.parseInt(getInfo(battDir + filename));
-                System.err.println(temporary + " mA/h");
                 if (Math.abs(temporary) < 2000) return temporary + " mA/h";
                 else
                     return temporary / 1000 + " mA/h";
-
-            case "BatteryAverageCurrent":
-            case "batt_current":
-                String temp = getInfo(battDir + filename) + " mA/h";
-                System.err.println(temp);
-                return temp;
-
-            default:
-                return "Unsupported";
         }
     }
 
@@ -63,14 +54,27 @@ class Battery {
                 return "Unsupported";
             default:
                 temporary = Integer.parseInt(getInfo(battDir + filename));
-                if(temporary>Math.pow(10,6)) temporary /= 1000;
-// TODO
-                if (filename.equals("voltage_now"))
-                    return (double) temporary / 1000 + " V";
-                else
-                    // if (filename.equals("batt_vol")
-                    return temporary + " V";
+                if (temporary > Math.pow(10, 6)) temporary /= 1000;
+                return (double) temporary / 1000 + " V";
+        }
+    }
 
+    protected String getCharge(String filename) {
+        switch (filename) {
+            case "missing":
+                return "Unsupported";
+            default:
+                return getInfo(battDir + filename) + "%";
+
+        }
+    }
+
+    protected String getTemp(String filename) {
+        switch (filename) {
+            case "missing":
+                return "Unsupported";
+            default:
+                return Double.parseDouble(getInfo(battDir + filename)) / 10 + "°";
         }
     }
 
@@ -92,25 +96,6 @@ class Battery {
         if (wearlvl < 0) wearlvl = 0;
 
         return String.valueOf(wearlvl) + "%";
-    }
-
-    protected String getCharge(String filename) {
-        switch (filename) {
-            case "capacity":
-                return getInfo(battDir + filename) + "%";
-            default:
-                return "Unsupported";
-        }
-    }
-
-    protected String getTemp(String filename) {
-        switch (filename) {
-            case "temp":
-            case "batt_temp":
-                return Double.parseDouble(getInfo(battDir + filename)) / 10 + "°";
-            default:
-                return "Unsupported";
-        }
     }
 
 }

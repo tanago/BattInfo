@@ -31,18 +31,18 @@ public class SettingsActivity extends AppCompatActivity {
         seekBar_Delay();
     }
 
-    private void seekBar_Delay(){
+    private void seekBar_Delay() {
         updateIntervalSeekBar = (SeekBar) findViewById(R.id.seekBar_Delay);
-        updateIntervalSeekBar.setProgress(UpdateInterval.VALUE/1000);
+        updateIntervalSeekBar.setProgress(UpdateInterval.VALUE / 1000);
 
         interval_value = (TextView) findViewById(R.id.interval_value);
-        interval_value.setText(String.valueOf(UpdateInterval.VALUE/1000));
+        interval_value.setText(String.valueOf(UpdateInterval.VALUE / 1000));
 
         updateIntervalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i , boolean b) {
-                UpdateInterval.VALUE = i*1000;
-                interval_value.setText(String.valueOf(UpdateInterval.VALUE/1000));
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                UpdateInterval.VALUE = i * 1000;
+                interval_value.setText(String.valueOf(UpdateInterval.VALUE / 1000));
             }
 
             @Override
@@ -52,23 +52,25 @@ public class SettingsActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                interval_value.setText(String.valueOf(UpdateInterval.VALUE/1000));
+                interval_value.setText(String.valueOf(UpdateInterval.VALUE / 1000));
             }
         });
     }
+
     @Override
     protected void onResume() {
         super.onResume();
     }
 
-    private final Runnable currentRefresher = new Runnable(){
-        public void run(){
+    private final Runnable currentRefresher = new Runnable() {
+        public void run() {
 
             mBuilder.setContentText(battery.getCurrent(currentFile));
             mNotifyMgr.notify(mNotificationId, mBuilder.build());
             handler.postDelayed(this, 5000);
         }
     };
+
     public void minimizeApp() {
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
@@ -76,12 +78,13 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(startMain);
     }
 
-    public void onTrackButtonPress(View v){
+    public void onTrackButtonPress(View v) {
         mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.statusbaricon)
                         .setContentTitle("BattInfo")
-                        .setContentText(currentData);
+                        .setContentText(currentData)
+                        .setOngoing(true);
         Intent resultIntent = new Intent(this, SettingsActivity.class);
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
@@ -95,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
         mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
-        currentFile=batteryFiles.getCurrentFile();
+        currentFile = batteryFiles.getCurrentFile();
         handler.post(currentRefresher);
         minimizeApp();
     }

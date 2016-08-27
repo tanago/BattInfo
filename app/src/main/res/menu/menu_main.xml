@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_graph"
+        android:icon="@drawable/ic_timeline_white_24dp"
+        android:title="@string/action_graph"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_build_white_48dp"
+        android:icon="@drawable/ic_settings_white_24dp"
         android:title="@string/action_settings"
         app:showAsAction="ifRoom"/>
+
 
 </menu>
